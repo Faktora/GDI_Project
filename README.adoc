@@ -1,4 +1,4 @@
-****************************Algorithms Project - Part 1*********************************
+Algorithms Project - Part 1
 
 Write a program which sorts an array of integer in three different ways:
 
@@ -15,14 +15,13 @@ Use the clock() function for timing the runtime of each function.
 As a result the unsorted and sorted arrays have to be displayed. Make sure that only 15 numbers are displayed in one line in order to enhance the readability of your program. Also display the runtime for each function when called with the different array sizes.
 
 
-******************************Algorithms Project - Part 2*******************************
-
+Algorithms Project - Part 2
 +++binary search+++
 
 Enhance the program by adding a String to each element of the array. This should be solved in a struct. Generate 500 elements of this struct by initialising it with random values for the integer and string values. Then offer the user the possibility to select one element, which has to be searched for by using the bsearch() function. Finally show the result to the user.
 
 
-******************************Algorithms Project - Grading******************************
+Algorithms Project - Grading
 
 C source file only
 Grading: Correct implementation of requested features (see task description above) and knowledge of your program
