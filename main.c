@@ -4,59 +4,88 @@
 
 //print unsorted and the sorted AFTER EVERY SINGLE SORTING ALGORITHM!!!!
 
-#define LENGTH 30
+#define LENGTH 1000
 
-int arrayOfNums[LENGTH];
 
-void arrayGenerator();
+struct bin_search{
+    int number;
+    char *string;
+};
 
 int *quickComp(const void *firstElement, const void *secondElement);
 
-void *mergeSort(int array[], int start, int end);
+void arrayGenerator(int *array);
+
+void *mergeSort(int *array, int start, int end);
 
 void *merge(int *array, int start, int end);
 
 void *bubble(int *array);
 
-void printArray();
+void printArray(int *array);
+
+void bin_search_array_fill(struct bin_search *array, int num_elements);
+
+void bin_search_print_array(struct bin_search *array, int num_elements);
+
+int compare_bin_search(const void *first_value, const void *second_value);
 
 int main() {
     clock_t start_quick, end_quick, start_merge, end_merge, start_bubble, end_bubble;
+    int arrayOfNums[LENGTH];
 
-    /*srand((unsigned int) time(NULL));
-    for (int i = 0; i < LENGTH; i++) {
-        arrayOfNums[i] = rand() % 32768;//
-    }*/
+    struct bin_search array[500];
+
     //makeing srand here so the numbers in every array are different every time i generate an array
     srand((unsigned int) time(NULL));
 
-    arrayGenerator();
+    arrayGenerator(arrayOfNums);
     //1st printing of the array while it is unsorted
-    printArray();
+    printArray(arrayOfNums);
 
+    //quick sort
     start_quick = clock();
     qsort(arrayOfNums, LENGTH, sizeof(int), (int (*)(const void *, const void *)) quickComp);
     end_quick = clock();
     float quick_Time = (float) (end_quick - start_quick) / CLOCKS_PER_SEC;
-    printArray();
+    printArray(arrayOfNums);
 
-    arrayGenerator();
-    printArray();
+    //merge sort
+    arrayGenerator(arrayOfNums);
+    printArray(arrayOfNums);
     start_merge = clock();
     mergeSort(arrayOfNums, 0, LENGTH - 1);
     end_merge = clock();
     float merge_Time = (float) (end_merge - start_merge) / CLOCKS_PER_SEC;
-    printArray();
+    printArray(arrayOfNums);
 
-    arrayGenerator();
-    printArray();
+    //bubble sort
+    arrayGenerator(arrayOfNums);
+    printArray(arrayOfNums);
     start_bubble = clock();
     bubble(arrayOfNums);
     end_bubble = clock();
     float bubble_Time = (float) (end_bubble - start_bubble) / CLOCKS_PER_SEC;
+    printArray(arrayOfNums);
 
-    //2nd printing of the sorted array with the additional data about runtime
-    printArray();
+    bin_search_array_fill(array, 500);
+    bin_search_print_array(array, 500);
+    qsort(array, 500, sizeof(struct bin_search), compare_bin_search);
+    bin_search_print_array(array, 500);
+
+    int unique_id = 0;
+    printf("\nEnter ID of element to search for:\n");
+    scanf("%d", &unique_id);
+    struct bin_search *search_id = bsearch((const void *)&unique_id, array, 500, \
+			sizeof(struct bin_search), compare_bin_search);
+    if(search_id != NULL){
+        printf("\nKey %d found string %s\n", unique_id, search_id->string);
+    }
+
+    for(int i = 0; i < 500; i++){
+        free(array[i].string);
+    }
+
     printf("\n\nThe Quicksort alogrithm took: %-5f seconds for %-2d elements.\n", quick_Time, LENGTH);
     printf("\nThe Merge algorithm took: %-5f seconds for: %-2d elements.\n", merge_Time, LENGTH);
     printf("\nThe Bubblesort algorithm took: %-5f seconds for: %-2d elements.\n", bubble_Time, LENGTH);
@@ -73,7 +102,13 @@ int *quickComp(const void *firstElement, const void *secondElement) {
     return (int *) (*(int *) firstElement - *(int *) secondElement);
 }
 
-void *mergeSort(int array[], int start, int end) {
+void arrayGenerator(int *array){
+    for (int i = 0; i <= LENGTH; i++) {
+        array[i] = rand() % 32768;//
+    }
+}
+
+void *mergeSort(int *array, int start, int end) {
     //if there are 1 or 0 elements left, no more dividing
     if (start >= end) {
         return NULL;
@@ -132,21 +167,36 @@ void *bubble(int *array) {
     return NULL;
 }
 
-void printArray() {
-    printf("The array is:\n");
-    for (int num = 0; num <= LENGTH; num++) {
-        const int stop = 15; //index 0 is not printed bcs 0 % 15 = no rest
-        if (num % stop == 0 && (void *) num != NULL) {
-            printf("\n");
-        } else {
-            printf("%7d", arrayOfNums[num]);
+void printArray(int *array) {
+    printf("\nThe array is:\n");
+    for (int i = 0; i < LENGTH; i++) {
+        //const int stop = 15; //index 0 is not printed bcs 0 % 15 = no rest
+        if(i % 15 == 0 && i != 0){
+            putchar('\n');
         }
+        printf("%d ", array[i]);
     }
     printf("\n");
 }
 
-void arrayGenerator(){
-    for (int i = 0; i <= LENGTH; i++) {
-        arrayOfNums[i] = rand() % 32768;//
+void bin_search_array_fill(struct bin_search *array, int num_elements){
+    for(int i = 0; i < num_elements; i++){
+        array[i].number = rand() % 32768;
+        array[i].string = malloc(11 * sizeof(char));
+        for (int j = 0; j < 10; j++) {
+            array[i].string[j] = rand() % 26 + 97;
+        }
+        array[i].string[10] = '\0';
     }
+}
+
+void bin_search_print_array(struct bin_search *array, int num_elements){
+    for (int i = 0; i < num_elements; i++) {
+        printf("%-10d %5s\n", array[i].number, array[i].string);
+    }
+}
+
+int compare_bin_search(const void *first_value, const void *second_value){
+    return (*((struct bin_search*)first_value)).number - (*((
+    struct bin_search*)second_value)).number;
 }
