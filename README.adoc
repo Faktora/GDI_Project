@@ -1,0 +1,30 @@
+****************************Algorithms Project - Part 1*********************************
+
+Write a program which sorts an array of integer in three different ways:
+
++++Mergesort+++
+
++++Quicksort+++
+
++++Bubblesort+++
+
+The array should be initialised with random numbers up to 32.767 in a seperate function. Execute the sort functions for different sizes of arrays, containing 1000, 5000, 10.000 and 25.000 elements. In order to evaluate the performance of each sort function, add the possibility to track the runtime of each function for each size of array.
+
+Use the clock() function for timing the runtime of each function.
+
+As a result the unsorted and sorted arrays have to be displayed. Make sure that only 15 numbers are displayed in one line in order to enhance the readability of your program. Also display the runtime for each function when called with the different array sizes.
+
+
+******************************Algorithms Project - Part 2*******************************
+
++++binary search+++
+
+Enhance the program by adding a String to each element of the array. This should be solved in a struct. Generate 500 elements of this struct by initialising it with random values for the integer and string values. Then offer the user the possibility to select one element, which has to be searched for by using the bsearch() function. Finally show the result to the user.
+
+
+******************************Algorithms Project - Grading******************************
+
+C source file only
+Grading: Correct implementation of requested features (see task description above) and knowledge of your program
+
+Interview: There will be a short interview in our last session on the code you have uploaded. In case of plagiarism or that you are not able to explain your program, this will result in a negative grading.
