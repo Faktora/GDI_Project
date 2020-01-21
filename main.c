@@ -198,5 +198,5 @@ void bin_search_print_array(struct bin_search *array, int num_elements){
 
 int compare_bin_search(const void *first_value, const void *second_value){
     return (*((struct bin_search*)first_value)).number - (*((
-    struct bin_search*)second_value)).number;
+            struct bin_search*)second_value)).number;
 }
